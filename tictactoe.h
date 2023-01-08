@@ -6,7 +6,7 @@ using namespace std;
 
 class TicTacToe{
 private:
-    int grid[3][3];
+    char grid[3][3];
     int x;
     int y;
     int g;
@@ -20,6 +20,7 @@ public:
     void PlayUntilWinner();
     bool CheckPlayerOne();
     bool CheckPlayerTwo();
+    bool CheckifitsaTie();
 };
 
 
@@ -35,8 +36,8 @@ void TicTacToe::Grid(){
 
     for(int i = 0; i < 3; i++){
         for(int b = 0; b<3; b++){
-           grid[i][b] = 0;
-           cout << grid[i][b];
+            grid[i][b] = '_';
+            cout << grid[i][b];
         }
         cout << endl;
     }
@@ -44,21 +45,21 @@ void TicTacToe::Grid(){
 
 void TicTacToe::PlayerOneChoose(){
     cout << "Player One: " << endl;
-    cout << "X coordinate: ";
+    cout << "X coordinate(0-2): ";
     cin >> x;
-    cout << "Y coordinate: ";
+    cout << "Y coordinate(0-2): ";
     cin >> y;
-    while(grid[y][x] == 1 || grid[y][x] == 2){
+    while(grid[y][x] == 'X' || grid[y][x] == 'O'){
         cout << "Sorry but place already taken." << endl; // ***** Checks if there is a place taken ******
         cout << "Player Two: " << endl;
-        cout << "X coordinate: ";
+        cout << "X coordinate(0-2): ";
         cin >> g;
-        cout << "Y coordinate: ";
+        cout << "Y coordinate(0-2): ";
         cin >> h;
     }
     for(int i = 0; i < 3; i++){                      // ***** Prints out the X value **********
         for(int b = 0; b<3; b++){
-            grid[y][x] = 1;
+            grid[y][x] = 'X';
             cout << grid[i][b];
         }
         cout << endl;
@@ -67,22 +68,22 @@ void TicTacToe::PlayerOneChoose(){
 
 void TicTacToe::PlayerTwoChoose() {
     cout << "Player Two: " << endl;
-    cout << "X coordinate: ";
+    cout << "X coordinate(0-2): ";
     cin >> g;
-    cout << "Y coordinate: ";
+    cout << "Y coordinate(0-2): ";
     cin >> h;
 
-    while(grid[h][g] == 1 || grid[h][g] == 2){                // **** Check if there is a place taken ******
+    while(grid[h][g] == 'X' || grid[h][g] == 'O'){                // **** Check if there is a place taken ******
         cout << "Sorry but place already taken." << endl;
         cout << "Player Two: " << endl;
-        cout << "X coordinate: ";
+        cout << "X coordinate(0-2): ";
         cin >> g;
-        cout << "Y coordinate: ";
+        cout << "Y coordinate(0-2): ";
         cin >> h;
     }
     for (int i = 0; i < 3; i++) {                               // PRINTS OUT "O"
         for (int b = 0; b < 3; b++) {
-            grid[h][g] = 2;
+            grid[h][g] = 'O';
             cout << grid[i][b];
         }
         cout << endl;
@@ -92,20 +93,59 @@ void TicTacToe::PlayerTwoChoose() {
 
 
 bool TicTacToe::CheckPlayerOne(){
-    if(grid[0][0] == 1 && grid[0][1] == 1 && grid[0][2] == 1){
+
+    if(grid[0][0] == 'X' && grid[0][1] == 'X' && grid[0][2] == 'X'){
         return true;
-    }else if(grid[1][0] == 1 && grid[1][1] == 1 && grid[1][2] == 1){
+    }else if(grid[1][0] == 'X' && grid[1][1] == 'X' && grid[1][2] == 'X'){
         return true;
+    }else if(grid[2][0] == 'X' && grid[2][1] == 'X' && grid[2][2] == 'X'){
+        return true;
+    }else if(grid[2][0] == 'X' && grid[1][1] == 'X' && grid[0][2] == 'X'){
+        return true;
+    }else if(grid[0][0] == 'X' && grid[1][1] == 'X' && grid[2][2] == 'X'){
+        return true;
+    }else if(grid[0][0] == 'X' && grid[1][0] == 'X' && grid[2][0] == 'X'){
+        return true;
+    }else if(grid[0][1] == 'X' && grid[1][1] == 'X' && grid[2][1] == 'X'){
+        return true;
+    }else if(grid[0][2] == 'X' && grid[1][2] == 'X' && grid[2][2] == 'X'){
+        return true;
+    }else{
+        return false;
     }
 
 }
 
 
 
+bool TicTacToe::CheckPlayerTwo() {
+
+    if(grid[0][0] == 'O' && grid[0][1] == 'O' && grid[0][2] == 'O'){
+        return true;
+    }else if(grid[1][0] == 'O' && grid[1][1] == 'O' && grid[1][2] == 'O'){
+        return true;
+    }else if(grid[2][0] == 'O' && grid[2][1] == 'O' && grid[2][2] == 'O'){
+        return true;
+    }else if(grid[2][0] == 'O' && grid[1][1] == 'O' && grid[0][2] == 'O'){
+        return true;
+    }else if(grid[0][0] == 'O' && grid[1][1] == 'O' && grid[2][2] == 'O'){
+        return true;
+    }else if(grid[0][0] == 'O' && grid[1][0] == 'O' && grid[2][0] == 'O'){
+        return true;
+    }else if(grid[0][1] == 'O' && grid[1][1] == 'O' && grid[2][1] == 'O'){
+        return true;
+    }else if(grid[0][2] == 'O' && grid[1][2] == 'O' && grid[2][2] == 'O'){
+        return true;
+    }else{
+        return false;
+    }
+
+}
 
 
-bool TicTacToe::CheckPlayerTwo(){
-    if( (grid[0][0] == 2 && grid[0][1] == 2 && grid[0][2] == 2) || (grid[1][0] == 2 && grid[1][1] == 2 && grid[1][2] == 2) || (grid[2][0] == 2 && grid[2][1] == 2 && grid[2][2] == 2) ){
+
+bool TicTacToe::CheckifitsaTie() {
+    if(grid[0][0] != '_' && grid[0][1] != '_' && grid[0][2] != '_' && grid[1][0] != '_' && grid[1][1] != '_' && grid[1][2] != '_' && grid[2][0] != '_' && grid[2][1] != '_' && grid[2][2] != '_'){
         return true;
     }else{
         return false;
@@ -114,22 +154,23 @@ bool TicTacToe::CheckPlayerTwo(){
 
 
 
-void TicTacToe::PlayUntilWinner(){
-    while(CheckPlayerOne() == false || CheckPlayerTwo() == false){
+
+void TicTacToe::PlayUntilWinner() {
+    while (CheckPlayerOne() == false || CheckPlayerTwo() == false) {
         PlayerOneChoose();
+        if (CheckPlayerOne() == true) {
+            cout << "Player One Won! " << endl;
+            exit(0);
+        }
+        if (CheckifitsaTie() == true) {
+            cout << "It's a tie" << endl;
+            exit(0);
+        }
         PlayerTwoChoose();
-    }
-    if(CheckPlayerOne() == true){
-        cout << "Player One Won!" << endl;
-    }else{
-        cout << "Player Two Won!" << endl;
+        if (CheckPlayerTwo() == true) {
+            cout << "Player Two Won" << endl;
+            exit(0);
+        }
     }
 }
-
-
-
-
-
-
 #endif
-
